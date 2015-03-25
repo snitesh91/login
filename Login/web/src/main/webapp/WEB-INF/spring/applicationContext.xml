@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:task="http://www.springframework.org/schema/task" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd         
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd         
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd         
+  http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd         
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+ <context:spring-configured />
+ <context:annotation-config />
+  
+<context:property-placeholder
+    location="file:///${user.home}/appProperties/login/database.properties" />
+
+<context:component-scan base-package="com.login"></context:component-scan>
+ 
+ <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+    <property name="driverClassName" value="${database.driverClassName}" />
+    <property name="url" value="${database.url}" />
+    <property name="username" value="${database.username}" />
+    <property name="password" value="${database.password}" />
+    <property name="initialSize" value="5" />
+      <property name="maxActive" value="10" />
+      <property name="maxIdle" value="5"/>
+  </bean>
+  
+    
+  <bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+      <property name="dataSource" ref="dataSource"/>
+      <property name="schemas" value="public"/>
+      <property name="validateOnMigrate" value="true"/>
+      <property name="outOfOrder" value="true"/>
+  </bean>
+  
+  <bean id="ibatisTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" depends-on="flyway">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  
+   <tx:annotation-driven transaction-manager="ibatisTransactionManager" proxy-target-class="false" />
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" depends-on="flyway">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:sqlmapper.xml" />
+  </bean>
+
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSessionFactory" />
+  </bean>
+  
+ <bean id="placeholderConfigMM" class="com.sirionlabs.util.SpringPropertiesUtil">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    <property name="locations">
+      <list>
+        <value>classpath:WEB-INF/properties/system.properties</value>
+      </list>
+    </property>
+  </bean>
+  
+  
+ 
+  
+</beans>
