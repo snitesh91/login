@@ -19,6 +19,15 @@
     location="file:///${user.home}/appProperties/login/database.properties" />
 
 <context:component-scan base-package="com.login"></context:component-scan>
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix">
+		<value>/WEB-INF/jspx/</value>
+	</property>
+	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+</bean>
  
  <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
     <property name="driverClassName" value="${database.driverClassName}" />
@@ -38,31 +47,21 @@
       <property name="outOfOrder" value="true"/>
   </bean>
   
-  <bean id="ibatisTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" depends-on="flyway">
+  <bean id="mybatisTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" depends-on="flyway">
     <property name="dataSource" ref="dataSource" />
   </bean>
   
-   <tx:annotation-driven transaction-manager="ibatisTransactionManager" proxy-target-class="false" />
+   <tx:annotation-driven transaction-manager="mybatisTransactionManager" proxy-target-class="false" />
 
-  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" depends-on="flyway">
-    <property name="dataSource" ref="dataSource" />
-    <property name="configLocation" value="classpath:sqlmapper.xml" />
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  	<property name="dataSource" ref="dataSource" />
+  	<property name="typeAliasesPackage" value="com.login.dao"/>
   </bean>
-
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
     <constructor-arg index="0" ref="sqlSessionFactory" />
   </bean>
   
- <bean id="placeholderConfigMM" class="com.sirionlabs.util.SpringPropertiesUtil">
-    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-    <property name="locations">
-      <list>
-        <value>classpath:WEB-INF/properties/system.properties</value>
-      </list>
-    </property>
-  </bean>
-  
-  
- 
-  
+ <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+  <property name="basePackage" value="data-xml" />
+</bean>
 </beans>
