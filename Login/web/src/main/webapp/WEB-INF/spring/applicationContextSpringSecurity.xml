@@ -13,18 +13,8 @@
 		<security:intercept-url pattern="/superadmin**"	access="ROLE_SUPER_ADMIN" />
 		<security:intercept-url pattern="/admin**" 	access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/user**"	access="ROLE_USER" />
-		<security:form-login login-page='/login' authentication-failure-url="/login?authfailed" authentication-failure-handler-ref="customAuthenticationFailureHandler" authentication-success-handler-ref="customAuthenticationSuccessHandler"/>
+		<security:form-login login-page='/login' authentication-failure-url="/login?authfailed" authentication-failure-handler-ref="authenticationFailureHandler" authentication-success-handler-ref="authenticationSuccessHandler"/>
 		<security:logout logout-success-url="/login?logout" />
 	</security:http>
 
-	
-	<beans:bean class="com.test.controller.CustomAuthenticationProvider" id="customAuthenticationProvider">
-	</beans:bean>
-	<security:authentication-manager>
-		<security:authentication-provider
-			ref="customAuthenticationProvider" />
-	</security:authentication-manager>
-	
-	<beans:bean id="userDetailService" class="com.test.controller.CustomUserDetailService" />
- 
 </beans:beans>
