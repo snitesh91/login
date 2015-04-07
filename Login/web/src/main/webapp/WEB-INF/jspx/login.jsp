@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Login Page</title>
-<link href="<c:url value="/resources/style.css" />" rel="stylesheet">
+<link href="<c:url value="resources/css/style.css" />" rel="stylesheet" type="text/css">
 </head>
 <body onload='document.loginForm.username.focus();'>
  
@@ -20,7 +20,7 @@
 		</c:if>
  
 		<form name='loginForm'
-		  action="<c:url value='j_spring_security_check' />" method='POST'>
+		  action="<c:url value='check' />" method='POST'>
  
 		  <table>
 			<tr>
@@ -35,11 +35,9 @@
 				<td colspan='2'><input name="submit" type="submit"
 					value="submit" /></td>
 			</tr>
+			
 		  </table>
- 
-		  <input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
- 
+ 	
 		</form>
 	</div>
  

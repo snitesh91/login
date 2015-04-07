@@ -1,20 +1,30 @@
 <beans:beans xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
- 
-
-<security:http auto-config="true">
-		<security:access-denied-handler
-			error-page="/403page" />
-		<security:intercept-url pattern="/superadmin**"	access="ROLE_SUPER_ADMIN" />
-		<security:intercept-url pattern="/admin**" 	access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/user**"	access="ROLE_USER" />
-		<security:form-login login-page='/login' authentication-failure-url="/login?authfailed" authentication-failure-handler-ref="authenticationFailureHandler" authentication-success-handler-ref="authenticationSuccessHandler"/>
-		<security:logout logout-success-url="/login?logout" />
+	
+	<security:http pattern="/resources/**" security="none"></security:http>
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/login"	access="permitAll" />
+		<security:intercept-url pattern="/loginfailed"	access="permitAll" />
+		<security:intercept-url pattern="/logout"	access="permitAll" />
+		<security:intercept-url pattern="/**"	access="hasRole('ROLE_USER')" />
+		<security:form-login login-page='/login' authentication-failure-url="/loginfailed"	authentication-failure-handler-ref="authenticationFailureHandler"
+			authentication-success-handler-ref="authenticationSuccessHandler" login-processing-url="/check" password-parameter="password"  username-parameter="username"/>
+		<security:logout logout-success-url="/logout" />
 	</security:http>
+	
+	<beans:bean id="authenticationFailureHandler" class="com.login.CustomAuthenticationFailureHandler" >
+		<beans:property name="defaultFailureUrl" value="/loginfailed"></beans:property>
+	</beans:bean>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			user-service-ref="userDetailsService">
+			<security:password-encoder hash="plaintext" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans:beans>

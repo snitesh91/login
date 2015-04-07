@@ -7,19 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-@Component("authenticationFailureHandler")
-public class CustomAuthenticationFailureHandler implements
-		AuthenticationFailureHandler {
-
+public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+	
 	@Override
-	public void onAuthenticationFailure(HttpServletRequest arg0,
-			HttpServletResponse arg1, AuthenticationException arg2)
+	public void onAuthenticationFailure(HttpServletRequest request,
+			HttpServletResponse response, AuthenticationException failed)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-
+		super.onAuthenticationFailure(request, response, failed);
 	}
 
 }
