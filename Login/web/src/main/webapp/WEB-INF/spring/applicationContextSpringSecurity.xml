@@ -12,18 +12,22 @@
 		<security:intercept-url pattern="/logout"	access="permitAll" />
 		<security:intercept-url pattern="/**"	access="hasRole('ROLE_USER')" />
 		<security:form-login login-page='/login' authentication-failure-url="/loginfailed"	authentication-failure-handler-ref="authenticationFailureHandler"
-			authentication-success-handler-ref="authenticationSuccessHandler" login-processing-url="/check" password-parameter="password"  username-parameter="username"/>
+			authentication-success-handler-ref="authenticationSuccessHandler" login-processing-url="/check"  password-parameter="password"  username-parameter="username"/>
 		<security:logout logout-success-url="/logout" />
 	</security:http>
 	
 	<beans:bean id="authenticationFailureHandler" class="com.login.CustomAuthenticationFailureHandler" >
 		<beans:property name="defaultFailureUrl" value="/loginfailed"></beans:property>
 	</beans:bean>
+	
+	<beans:bean id="authenticationSuccessHandler" class="com.login.CustomAuthenticationSuccessHandler" >
+		<beans:property name="defaultTargetUrl" value="/welcome"></beans:property>
+	</beans:bean>
+	
 
 	<security:authentication-manager>
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
-			<security:password-encoder hash="plaintext" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
