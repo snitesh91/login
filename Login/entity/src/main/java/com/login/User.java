@@ -14,6 +14,15 @@ public class User {
 	private boolean isActive;
 	private Date dateCreated;
 	private Date dateModified;
+	private Date lastLoginTime;
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
 	private boolean isAdmin;
 	private Date lastPasswordUpdatedTime;
 

@@ -15,9 +15,10 @@
     <result column="date_modified" property="dateModified" jdbcType="TIMESTAMP" />
     <result column="is_admin" property="isAdmin" jdbcType="BIT" />
     <result column="last_password_updated_time" property="lastPasswordUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
 </resultMap>
 
 <select id="getUserByUserName" resultMap="userMap" parameterType="String">
-select id,user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time from app_user where user_name = #{userName}
+select id,user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time from app_user where user_name = #{userName}
 </select>
 </mapper>

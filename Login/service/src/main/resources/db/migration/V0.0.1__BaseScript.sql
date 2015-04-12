@@ -12,5 +12,7 @@ active boolean ,
 date_created timestamp, 
 date_modified timestamp,
 last_password_updated_time timestamp
+last_login_time timestamp;
 );
 
+insert into app_user values (1,'admin','admin123',true,'snitesh91@gmail.com','9873740900','',0,true,now(),now(),now(),null);
