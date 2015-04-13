@@ -15,6 +15,14 @@ public final class CustomUserDetails implements UserDetails {
 		this.user = user;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

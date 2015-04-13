@@ -1,9 +1,12 @@
 package com.login;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String userName;
 	private String password;
@@ -15,6 +18,10 @@ public class User {
 	private Date dateCreated;
 	private Date dateModified;
 	private Date lastLoginTime;
+	private boolean isAdmin;
+	private Date lastPasswordUpdatedTime;
+
+	
 	public Date getLastLoginTime() {
 		return lastLoginTime;
 	}
@@ -22,9 +29,6 @@ public class User {
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-
-	private boolean isAdmin;
-	private Date lastPasswordUpdatedTime;
 
 	public Date getLastPasswordUpdatedTime() {
 		return lastPasswordUpdatedTime;
@@ -84,6 +88,10 @@ public class User {
 
 	public int getFailedLoginCount() {
 		return failedLoginCount;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public void setFailedLoginCount(int failedLoginCount) {
