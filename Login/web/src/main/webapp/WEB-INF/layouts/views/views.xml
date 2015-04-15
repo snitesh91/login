@@ -7,5 +7,7 @@
     <definition name="welcome" extends="default">  
 		<put-attribute name="body" value="" />
     </definition>  
+    
+  
   
 </tiles-definitions> 

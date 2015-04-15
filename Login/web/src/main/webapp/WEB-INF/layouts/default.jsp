@@ -3,20 +3,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Login Demo</title>
-	<link rel="stylesheet" href="resources/css/style.css" 
-      type="text/css" media="screen, projection"></link>
-<style>
-body{ margin-top:20px; margin-bottom:20px; background-color:#DFDFDF;}
-</style>
+	<link rel="stylesheet" href="resources/css/style.css" type="text/css" media="screen, projection"></link>
 </head>
 <body>
-	<div class="container" style="border: #C1C1C1 solid 1px; border-radius:10px;">
+	<div id="wrapper">
 		<!-- Header -->
 		<tiles:insertAttribute name="header" />
 		<!-- Body Page -->
-		<div class="span-19 last">
-			<tiles:insertAttribute name="body" />
-		</div>
+		<tiles:insertAttribute name="body" />
 		<!-- Footer Page -->
 		<tiles:insertAttribute name="footer" />
 	</div>

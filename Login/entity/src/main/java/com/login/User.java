@@ -3,10 +3,7 @@ package com.login;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	
+public class User {
 	private int id;
 	private String userName;
 	private String password;
@@ -88,10 +85,6 @@ public class User implements Serializable {
 
 	public int getFailedLoginCount() {
 		return failedLoginCount;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public void setFailedLoginCount(int failedLoginCount) {

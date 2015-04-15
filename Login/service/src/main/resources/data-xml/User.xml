@@ -21,4 +21,9 @@
 <select id="getUserByUserName" resultMap="userMap" parameterType="String">
 select id,user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time from app_user where user_name = #{userName}
 </select>
+
+<insert id="insert" parameterMap="com.login.User">
+	insert into user(user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time)
+	values (#{userName},#{password},#{emailId},#{contactNumber},#{address},#{failedLoginCount},#{active},now(),now(),#{isAdmin},now(),#{lastLoginTime}) 
+</insert>
 </mapper>

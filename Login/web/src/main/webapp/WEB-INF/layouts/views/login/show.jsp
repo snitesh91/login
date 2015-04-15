@@ -27,6 +27,7 @@
 			</tr>
 			
 		  </table>
- 	
+ 			
 		</form>
+		New User!!<a href="register">Click here to login</a> 
 </div>

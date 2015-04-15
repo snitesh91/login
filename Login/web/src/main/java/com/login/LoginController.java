@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LoginController {
+	
+	
 	private Exception getException(HttpServletRequest request) {
 		Exception exception = (Exception) request.getSession().getAttribute(
 				"SPRING_SECURITY_LAST_EXCEPTION");
@@ -75,5 +77,5 @@ public class LoginController {
 
 		return "welcome";
 	}
-
+	
 }

@@ -8,5 +8,10 @@
     	<put-attribute name="header" value="" />	
 		<put-attribute name="body" value="/WEB-INF/layouts/views/login/show.jsp" />
     </definition>  
+    
+      <definition name="register" extends="default">
+    	<put-attribute name="header" value="" />
+    	<put-attribute name="body" value="/WEB-INF/layouts/views/login/show-register.jsp" />
+    </definition>
   
 </tiles-definitions> 

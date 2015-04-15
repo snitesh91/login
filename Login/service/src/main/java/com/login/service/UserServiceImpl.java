@@ -18,4 +18,12 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	public Integer insert(User user) {
+		user.setFailedLoginCount(0);
+		user.setActive(true);
+		user.setLastLoginTime(null);
+		Integer isSuccessfull = userDao.insert(user);
+		return isSuccessfull;
+	}
+
 }

@@ -1,3 +1,5 @@
 <div id="footer">
-@CopyRight: All Rights Reserved
+	<div style="text-align: center;">
+		&copy Copyright All Rights Reserved
+	</div>
 </div>
