@@ -29,5 +29,8 @@
 		  </table>
  			
 		</form>
-		New User!!<a href="register">Click here to login</a> 
+		New User!!<a href="register">Click here to Register</a> 
+		
+		<a href = "/auth/facebook" >Login using facebook</a>
+		<a href = "/auth/twitter" >Login using twitter</a>
 </div>

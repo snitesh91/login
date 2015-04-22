@@ -15,12 +15,12 @@ public class CustomUserDetailService implements UserDetailsService{
 	private UserServiceImpl userServiceImpl;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username)
+	public UserDetails loadUserByUsername(String emailId)
 			throws UsernameNotFoundException {
-		if(username.equalsIgnoreCase("")){
+		if(emailId.equalsIgnoreCase("")){
 			throw new UsernameNotFoundException("User not found");
 		}
-		User user = userServiceImpl.getUserByUserName(username);
+		User user = userServiceImpl.getUserByEmailId(emailId);
 		if(user==null)
 			throw new UsernameNotFoundException("User not found");
 		UserDetails userDetails = new CustomUserDetails(user);

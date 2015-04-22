@@ -4,7 +4,8 @@
 
 <resultMap type="com.login.User" id="userMap">
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="first_name" property="firstName" jdbcType="VARCHAR" />
+    <result column="last_name" property="lastName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="email_id" property="emailId" jdbcType="VARCHAR" />
     <result column="contact_no" property="contactNumber" jdbcType="VARCHAR" />
@@ -16,14 +17,16 @@
     <result column="is_admin" property="isAdmin" jdbcType="BIT" />
     <result column="last_password_updated_time" property="lastPasswordUpdatedTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="login_mechanism" property="loginMechanism" jdbcType="INTEGER" />
 </resultMap>
 
-<select id="getUserByUserName" resultMap="userMap" parameterType="String">
-select id,user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time from app_user where user_name = #{userName}
+<insert id="insert" parameterType="com.login.User">
+	insert into app_user(first_name,last_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time,login_mechanism)
+	values (#{firstName},#{lastName},#{password},#{emailId},#{contactNumber},#{address},#{failedLoginCount},#{active},now(),now(),#{isAdmin},now(),#{lastLoginTime},#{loginMechanism}) 
+</insert>
+
+<select id="getUserByEmailId" resultMap="userMap" parameterType="String">
+select id,first_name,last_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time,login_mechanism from app_user where email_id= #{emailId}
 </select>
 
-<insert id="insert" parameterMap="com.login.User">
-	insert into user(user_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time)
-	values (#{userName},#{password},#{emailId},#{contactNumber},#{address},#{failedLoginCount},#{active},now(),now(),#{isAdmin},now(),#{lastLoginTime}) 
-</insert>
 </mapper>

@@ -13,17 +13,17 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public User getUserByUserName(String userName) {
-		User user = userDao.getUserByUserName(userName);
-		return user;
-	}
-
 	public Integer insert(User user) {
 		user.setFailedLoginCount(0);
 		user.setActive(true);
 		user.setLastLoginTime(null);
 		Integer isSuccessfull = userDao.insert(user);
 		return isSuccessfull;
+	}
+
+	@Override
+	public User getUserByEmailId(String emailId) {
+		return userDao.getUserByEmailId(emailId);
 	}
 
 }

@@ -5,11 +5,20 @@ import java.util.Date;
 
 public class User {
 	private int id;
-	private String userName;
+	private String firstName;
+	private String lastName;
 	private String password;
 	private String emailId;
 	private String contactNumber;
 	private String address; // Address address;
+	public int getLoginMechanism() {
+		return loginMechanism;
+	}
+
+	public void setLoginMechanism(int loginMechanism) {
+		this.loginMechanism = loginMechanism;
+	}
+
 	private int failedLoginCount;
 	private boolean isActive;
 	private Date dateCreated;
@@ -17,6 +26,7 @@ public class User {
 	private Date lastLoginTime;
 	private boolean isAdmin;
 	private Date lastPasswordUpdatedTime;
+	private int loginMechanism;
 
 	
 	public Date getLastLoginTime() {
@@ -43,14 +53,21 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -122,5 +139,6 @@ public class User {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
 
 }
