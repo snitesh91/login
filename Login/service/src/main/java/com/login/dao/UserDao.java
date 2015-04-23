@@ -4,7 +4,7 @@ import com.login.User;
 
 public interface UserDao{
 
-	public Integer insert(User user);
+	public Integer insertNewUser(User user);
 
 	public User getUserByEmailId(String emailId);
 

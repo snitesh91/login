@@ -4,9 +4,11 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">  
 <tiles-definitions>  
  
-    <definition name="login" extends="default">  
-    	<put-attribute name="header" value="" />	
-		<put-attribute name="body" value="/WEB-INF/layouts/views/login/show.jsp" />
+    <definition name="welcome" extends="default">  
+    	<put-attribute name="header" value="/WEB-INF/layouts/views/welcome/header.jsp" />
+		<put-attribute name="body" value="" />
     </definition>  
-     
+    
+  
+  
 </tiles-definitions> 

@@ -20,7 +20,7 @@
     <result column="login_mechanism" property="loginMechanism" jdbcType="INTEGER" />
 </resultMap>
 
-<insert id="insert" parameterType="com.login.User">
+<insert id="insertNewUser" parameterType="com.login.User">
 	insert into app_user(first_name,last_name,password,email_id,contact_no,address,failed_login_attempts,active,date_created,date_modified,is_admin,last_password_updated_time,last_login_time,login_mechanism)
 	values (#{firstName},#{lastName},#{password},#{emailId},#{contactNumber},#{address},#{failedLoginCount},#{active},now(),now(),#{isAdmin},now(),#{lastLoginTime},#{loginMechanism}) 
 </insert>

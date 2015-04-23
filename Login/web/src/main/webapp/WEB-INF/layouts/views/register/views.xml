@@ -3,11 +3,9 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"  
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">  
 <tiles-definitions>  
- 
-    <definition name="welcome" extends="default">  
-		<put-attribute name="body" value="" />
-    </definition>  
-    
-  
+       <definition name="register" extends="default">
+    	<put-attribute name="header" value="" />
+    	<put-attribute name="body" value="/WEB-INF/layouts/views/register/show.jsp" />
+    </definition>
   
 </tiles-definitions> 

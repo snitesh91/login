@@ -27,16 +27,8 @@ public class RegisterController {
 	@RequestMapping(value="/create-account" ,method=RequestMethod.POST)
 	public String registerNewUser(@ModelAttribute RegistrationForm registrationForm,Model model){
 		User user =userServiceImpl.getUserByEmailId(registrationForm.getEmailId());
-		if(user != null){
-			model.addAttribute("error",true);
-			model.addAttribute("errorMessage","Email Id is already used to create a account.");
+		if(validateForm(registrationForm, model, user)==false){
 			return "redirect:register";
-		}
-		if(!registrationForm.getPassword().equals(registrationForm.getPasswordVerification())){
-			model.addAttribute("error",true);
-			model.addAttribute("errorMessage","Passport mismatch.");
-			return "redirect:register";
-			
 		}
 		user = new User();
 		user.setFirstName(registrationForm.getFirstName());
@@ -45,7 +37,7 @@ public class RegisterController {
 		user.setPassword(registrationForm.getPassword());
 		user.setLoginMechanism(registrationForm.getSocialMediaService().getId());
 		
-		Integer isSuccessfull = userServiceImpl.insert(user);
+		Integer isSuccessfull = userServiceImpl.insertNewUser(user);
 		if(isSuccessfull==0){
 			model.addAttribute("error",true);
 			model.addAttribute("errorMessage","Unexpexted Error.Please try after some time");
@@ -54,4 +46,20 @@ public class RegisterController {
 		
 		return "redirect:login";
 	}
+
+	private boolean validateForm(RegistrationForm registrationForm, Model model,User user) {
+		if(user != null){
+			model.addAttribute("error",true);
+			model.addAttribute("errorMessage","Email Id is already used to create a account.");
+			return false;
+		}
+		if(!registrationForm.getPassword().equals(registrationForm.getPasswordVerification())){
+			model.addAttribute("error",true);
+			model.addAttribute("errorMessage","Passport mismatch.");
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

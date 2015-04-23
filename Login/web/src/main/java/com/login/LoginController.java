@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.UIManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.login.Utils.AuthenticationUtils;
+import com.login.service.UserService;
+
 @Controller
 public class LoginController {
 	
+	@Autowired
+	private UserService userService;
 	
 	private Exception getException(HttpServletRequest request) {
 		Exception exception = (Exception) request.getSession().getAttribute(
@@ -73,8 +79,11 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
-	public String welcome() {
-
+	public String welcome(Model model) {
+		String email = AuthenticationUtils.getEmailId();
+		User user = userService.getUserByEmailId(email);
+		model.addAttribute("firstName",user.getFirstName());
+		model.addAttribute("lastName",user.getLastName());
 		return "welcome";
 	}
 	

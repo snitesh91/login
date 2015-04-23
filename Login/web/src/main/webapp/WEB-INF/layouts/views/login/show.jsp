@@ -14,7 +14,7 @@
  
 		  <table>
 			<tr>
-				<td>User:</td>
+				<td>Email Id:</td>
 				<td><input type='text' name='username' value=''></td>
 			</tr>
 			<tr>
@@ -30,7 +30,9 @@
  			
 		</form>
 		New User!!<a href="register">Click here to Register</a> 
-		
-		<a href = "/auth/facebook" >Login using facebook</a>
-		<a href = "/auth/twitter" >Login using twitter</a>
+		<br>
+		<a href = "auth/facebook" >Login using facebook</a>
+		<br>
+		<a href = "auth/twitter" >Login using twitter</a>
+		<br>
 </div>

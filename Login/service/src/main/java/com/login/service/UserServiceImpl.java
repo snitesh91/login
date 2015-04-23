@@ -13,11 +13,11 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public Integer insert(User user) {
+	public Integer insertNewUser(User user) {
 		user.setFailedLoginCount(0);
 		user.setActive(true);
 		user.setLastLoginTime(null);
-		Integer isSuccessfull = userDao.insert(user);
+		Integer isSuccessfull = userDao.insertNewUser(user);
 		return isSuccessfull;
 	}
 

@@ -11,14 +11,6 @@ public class User {
 	private String emailId;
 	private String contactNumber;
 	private String address; // Address address;
-	public int getLoginMechanism() {
-		return loginMechanism;
-	}
-
-	public void setLoginMechanism(int loginMechanism) {
-		this.loginMechanism = loginMechanism;
-	}
-
 	private int failedLoginCount;
 	private boolean isActive;
 	private Date dateCreated;
@@ -139,6 +131,12 @@ public class User {
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	public int getLoginMechanism() {
+		return loginMechanism;
+	}
 
+	public void setLoginMechanism(int loginMechanism) {
+		this.loginMechanism = loginMechanism;
+	}
 
 }
