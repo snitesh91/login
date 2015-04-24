@@ -14,17 +14,25 @@
 		<security:intercept-url pattern="/user/**"	access="hasRole('ROLE_USER')" />
 		<security:form-login login-page='/login' authentication-failure-url="/loginfailed"	authentication-failure-handler-ref="authenticationFailureHandler"
 			authentication-success-handler-ref="authenticationSuccessHandler" login-processing-url="/check"  password-parameter="password"  username-parameter="username"/>
-		<security:logout logout-success-url="/logout" />
+		<security:logout logout-success-url="/logout" delete-cookies="JSESSIONID" />
+		<security:custom-filter ref="socialLoginFilter" before="PRE_AUTH_FILTER"/>
 	</security:http>
 	
 	<beans:bean id="authenticationFailureHandler" class="com.login.CustomAuthenticationFailureHandler" >
 		<beans:property name="defaultFailureUrl" value="/loginfailed"></beans:property>
 	</beans:bean>
 	
-	<security:authentication-manager>
-		<security:authentication-provider
-			user-service-ref="userDetailsService">
-		</security:authentication-provider>
+	<security:authentication-manager alias="authManager">
+		<security:authentication-provider user-service-ref="userDetailsService">	</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<beans:bean id="socialLoginFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+	<beans:constructor-arg index="0" ref="authManager"></beans:constructor-arg>
+	<beans:constructor-arg index="1" ref="userIdSource"></beans:constructor-arg>
+	<beans:constructor-arg index="2" ref="usersConnectionRepository"></beans:constructor-arg>
+	<beans:constructor-arg index="3" ref="connectionFactoryLocator"></beans:constructor-arg>
+	</beans:bean>
+	
+	<beans:bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
 
 </beans:beans>

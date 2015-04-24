@@ -10,9 +10,11 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.stereotype.Service;
 
 import com.login.service.UserService;
 
+@Service("socialUserDetailsService")
 public class CustomSocialUserDetailsService implements SocialUserDetailsService {
 
 	@Autowired
@@ -21,7 +23,13 @@ public class CustomSocialUserDetailsService implements SocialUserDetailsService 
 	@Override
 	public SocialUserDetails loadUserByUserId(String emailId)
 			throws UsernameNotFoundException, DataAccessException {
+		if(emailId==null){
+			throw new UsernameNotFoundException("Email Id is cannot be null.");
+		}
 		User user = userService.getUserByEmailId(emailId);
+		if(user == null){
+			throw new UsernameNotFoundException("Email id doesnot exist.");
+		}
 		SocialUserDetails socialUserDetails  = new CustomSocialUserDetails(user);
 		return socialUserDetails;
 	}
