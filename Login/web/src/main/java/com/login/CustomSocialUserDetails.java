@@ -1,58 +1,68 @@
 package com.login;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.social.security.SocialUserDetails;
 
 public class CustomSocialUserDetails implements SocialUserDetails {
+	
+	private User user;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
+		if (user.isAdmin() == true) {
+			authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
+		}
+		return authorities;
+
+ 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return user.getEmailId();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		if (user.getFailedLoginCount() > 5) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return user.isActive();
 	}
 
 	@Override
 	public String getUserId() {
-		// TODO Auto-generated method stub
-		return null;
+		return user.getEmailId();
+	}
+	
+	public CustomSocialUserDetails(User user){
+		this.user = user;
 	}
 
 }
